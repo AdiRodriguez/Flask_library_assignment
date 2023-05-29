@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>CUSTOMERS</title>
+</head>
+
+<body >
+    <h1>Library: Customer - Serach</h1>
+    Customer name:<input type="text" id="customer_name" placeholder="ENTER YOUR NAME" required>
+    <button onclick="serach()">Serach</button><br><br>
+    <div id="found_customer">
+        
+    </div>
+    <br>
+    <a href="/index.html">Back to manu</a>
+
+
+    <script>
+        const MY_SERVER = 'http://127.0.0.1:5000'
+        const serach = () => {
+            axios.get(MY_SERVER +`/customers/view/search/${customer_name.value}`).then(response => {
+                const data = response.data;
+                found_customer.innerHTML = `<div> CustomerID: ${data.id}<br>
+                     Customer Name: ${data.name}<br>
+                      City: ${data.city}<br>
+                       Age: ${data.age}
+                        </div>`
+
+            })
+            .catch(error => {
+                    console.error('An error occurred:', error);
+                    found_customer.innerHTML = `<div> Customer not found... </div> `
+
+                });
+        };
+        
+    </script>
+
+</body>
+
+</html>

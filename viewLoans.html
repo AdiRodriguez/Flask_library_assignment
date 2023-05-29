@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>VIEW LOANS</title>
+</head>
+
+<body onload="getData()">
+    <h1>Library: Loans - View and Return Book</h1>
+    <div id="loansss">
+        <h2>All Current Loans</h2>
+    </div> <br>
+    <a href="/index.html">Back to manu</a>
+
+    <script>
+        const MY_SERVER = 'http://127.0.0.1:5000'
+        const getData = () => {
+            axios.get(MY_SERVER + "/loans/view").then(response => {
+                const data = response.data;
+                console.log(data);
+                for (let index = 0; index < data.length; index++) {
+                    let obj = data[index]
+                    loansss.innerHTML += `<div> Loan ID: ${obj.id}, CustomerID:${obj.custid}, Customer Name: ${obj.custname}
+                         BookID: ${obj.bookid}, Book Name: ${obj.bookname} LoanDate: ${obj.loandate}, ReturnDate: ${obj.returndate}
+                        <button onclick="delete_loan(${obj.id},${obj.bookid})">Return book/Delete loan</button>
+                        </div>`
+                }
+            });
+        };
+        
+        const delete_loan = async (loanid, bookid) => {
+            console.log(loanid);
+            console.log(bookid);
+            delete_customer = await axios.delete(MY_SERVER + `/loans/del/${loanid}`)
+            
+                data = {
+
+                currently_loaned : false
+
+            }
+            change_boolean = await axios.put(MY_SERVER + `/books/update/boolean/${bookid}`, data)
+        }
+        
+    </script>
+
+</body>
+
+</html>

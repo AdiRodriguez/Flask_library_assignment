@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>Library Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body onload="getCustomerData()">
+    <h1>Library: Laon - New Loan:</h1>
+
+        <h1>Enter Details</h2>
+    
+    Loan to customer:<select id="customer_name" name="options" onchange="get_customer_values()">
+        <option value="-1" selected>Choose a customer</option>
+        </select>
+     The book:<select id="book_name" name="options" onchange="get_book_values()">
+        <option value="-1" selected>Choose a Book</option>
+
+        </select>
+    For the duration of:<select id="book_loan" name="options" onchange="get_loan_values()">
+        <option value="-1" selected>Choose duration</option>
+        <option value="1">up to 10 days</option>
+        <option value="2">up to 5 days</option>
+        <option value="3">up to 2 days</option>
+      </select>
+    <button onclick="newloan()">Confirm</button>
+    <br> <br> <a href="/index.html">Back to manu</a>
+    
+
+
+
+
+
+
+
+    <script>
+        
+        const MY_SERVER = 'http://127.0.0.1:5000'
+        let select_customer = document.getElementById('customer_name');
+        let select_book = document.getElementById('book_name');
+        let value_book = -1
+        let value_customer = -1
+        let value_loan = -1
+        
+
+        
+        
+
+        const getCustomerData = () => {
+            axios.get(MY_SERVER +"/customers/view").then(response => {
+                const data = response.data;
+                for (let index = 0; index < data.length; index++) {
+                    let costumers_names = data[index].name  
+                    var opt = document.createElement('option');
+                    opt.value = data[index].id;
+                    opt.innerHTML = costumers_names
+                    select_customer.appendChild(opt)
+                }
+                getBookData()
+            });
+        };
+
+        const getBookData = () => {
+            axios.get(MY_SERVER +"/books/view").then(response => {
+                const data = response.data;
+                for (let index = 0; index < data.length; index++) {
+                    
+                    let books_name = data[index].name;
+                    let book_boolean = data[index].currently_loaned;
+                    if (book_boolean == true)
+                    {
+                    
+                    }
+                    else
+                    {
+
+                        var opt = document.createElement('option');
+                        opt.value = data[index].id;
+                        opt.innerHTML = books_name
+                        select_book.appendChild(opt)
+
+                    }
+                    
+                   
+
+                }
+            });
+        };
+
+        function get_customer_values() {
+            var x = document.getElementById("customer_name")
+            var value_x = x.value
+            value_customer = value_x
+               
+        }
+        function get_book_values() {
+            var y = document.getElementById("book_name")
+            var value_y = y.value
+            value_book = value_y
+                
+            
+        }
+
+        function get_loan_values() {
+            var z = document.getElementById("book_loan")
+            var value_z = z.value
+            value_loan = value_z
+            
+               
+        }
+        
+        const newloan = async () => {
+            if (value_customer > 0 && value_book > 0 && value_loan > 0) 
+            {
+                data = {
+                custid: value_customer,
+                bookid: value_book,
+                loan_type : value_loan,
+                currently_loaned : true
+
+            }
+            this_loan = await axios.post(MY_SERVER + "/loans/new", data)
+            this_loan_update = await axios.put(MY_SERVER + `/books/update/boolean/${value_book}`, data)
+            }
+        
+            else 
+            {
+                alert("Please select a customer, book, and loan duration.");
+            }
+            
+
+        }
+
+
+
+
+        
+
+    </script>
+</body>
+
+</html>

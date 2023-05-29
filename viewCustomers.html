@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>CUSTOMERS</title>
+</head>
+
+<body onload="getData()">
+    <h1>Library: Customer - View and Delete Customer:</h1>
+    <div id="customerssss">
+        <h2>All Current Customers</h2>
+    </div>
+    <br>
+    <a href="/index.html">Back to manu</a>
+
+    <script>
+        const MY_SERVER = 'http://127.0.0.1:5000'
+        const getData = () => {
+            axios.get(MY_SERVER +"/customers/view").then(response => {
+                const data = response.data;
+                // console.log(data);
+                for (let index = 0; index < data.length; index++) {
+                    let obj = data[index]
+                    customerssss.innerHTML += `<div> CustomerID: ${obj.id}, Name: ${obj.name}, City: ${obj.city}, Age: ${obj.age}
+                        <button onclick="delete_customer(${obj.id})">Delete Customer</button>
+                        </div>`
+                }
+            });
+        };
+        
+
+        const delete_customer = async (id) => {
+            delete_customer = await axios.delete(MY_SERVER + `/customers/del/${id}`)
+        }
+        
+        
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>CUSTOMERS</title>
+</head>
+
+<body>
+    <h1>Library: Books - Search</h1>
+    Book name: <input type="text" id="book_name" placeholder="ENTER BOOK NAME" required>
+    <button onclick="search()">Search</button><br><br>
+    <div id="found_Book">
+
+    </div>
+    <br>
+    <a href="/index.html">Back to menu</a>
+
+
+    <script>
+        const MY_SERVER = 'http://127.0.0.1:5000'
+        const search = () => {
+            axios.get(MY_SERVER + `/books/view/search/${book_name.value}`)
+                .then(response => {
+                    const data = response.data;
+                    found_Book.innerHTML = `<div> BookID: ${data.id}<br>
+                         Book Name: ${data.name}<br>
+                         Author: ${data.author}<br>
+                         Year Published: ${data.year_published}
+                            </div>`;
+                })
+                .catch(error => {
+                    console.error('An error occurred:', error);
+                    found_Book.innerHTML = `<div> Book not found... </div> `
+
+                });
+        };
+
+    </script>
+
+</body>
+
+</html>

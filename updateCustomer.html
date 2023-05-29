@@ -1,0 +1,83 @@
+<!-- NOT COMPLETED -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>CUSTOMER</title>
+</head>
+
+<body onload="getData()">
+    <h1>Library: Customer - Update Customers</h1>
+    <h2>Press the Update to Confirm Changes</h2>
+    Customer:<select id="selectElementId" name="options" onchange="Fill_Blanks()">
+        <option value="-1" selected>Choose a customer</option>
+
+        NAME:<input type="text" id="customer_name" required>           
+        CITY:<input type="text" id="customer_city" required>
+        Age:<input type="number" id="customer_age"  required>
+    
+    <button onclick="update_customer(this_id)">Update</button>
+    <br> <br> <a href="/index.html">Back to manu</a>
+
+    <script>
+        const MY_SERVER = 'http://127.0.0.1:5000'
+        let select = document.getElementById('selectElementId');
+        let this_id = -1
+        const getData = () => {
+            axios.get(MY_SERVER +"/customers/view").then(response => {
+                const data = response.data;
+                console.log(data);
+                for (let index = 0; index < data.length; index++) {
+                    let costumers_names = data[index].name  
+                    var opt = document.createElement('option');
+                    opt.value = data[index].id;
+                    opt.innerHTML = costumers_names
+                    select.appendChild(opt)
+
+
+                    document.getElementById("customer_name").value = ""
+                    document.getElementById("customer_city").value = ""
+                    document.getElementById("customer_age").value = ""
+                
+                }
+            });
+        };
+        
+        const Fill_Blanks = () => {
+            axios.get(MY_SERVER +"/customers/view").then(response => {
+                const data = response.data;
+
+                id = document.getElementById("selectElementId").value - 1;
+                document.getElementById("customer_name").value = data[id].name
+                document.getElementById("customer_city").value = data[id].city
+                document.getElementById("customer_age").value = data[id].age
+                this_id = id + 1;
+                
+            });
+        };
+        const update_customer = async () => {
+            data = {
+                name: customer_name.value,
+                city: customer_city.value,
+                age: customer_age.value,
+
+            }
+            console.log(data);
+            // WE ARE SENDING THE DATA WITH THIS LINE!!!!
+            customers = await axios.put(MY_SERVER + `/customers/update/${this_id}`, data)
+            getData()
+            
+
+        }
+// code works, missing edge case of "choose customer" and obviously, make it more readable 
+
+
+    </script>
+
+</body>
+
+</html>

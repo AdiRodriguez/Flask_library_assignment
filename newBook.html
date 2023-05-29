@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>NEW BOOK</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Library: Books - New book:</h1>
+    <!-- Add a new customer -->
+    <div id="customerssss">
+    </div>
+
+    <h2>Enter Details:</h2>
+    Title:<input type="text" id="book_name" placeholder="ENTER BOOK TITLE" required>
+    Author:<input type="text" id="book_author" placeholder="ENTER BOOK AUTHOR" required>
+    Year Published:<input type="number" id="book_year" placeholder="ENTER BOOK YEAR" required>
+      <select id="book_loan">
+      <option value="-1" selected>Type of loan</option>
+      <option value="1">up to 10 days</option>
+      <option value="2">up to 5 days</option>
+      <option value="3">up to 2 days</option>
+    </select>
+    <button onclick="newBook()">Add new book</button> <br> <br> <br>
+    <a href="index.html">Back to the Menu</a>
+    <script>
+        const MY_SERVER = 'http://127.0.0.1:5000'
+        const newBook = async () => {
+            if (book_name.value.length <= 1 || book_author.value.length <= 1 || book_year.value.length <= 3 || book_loan.value < 0) 
+            {
+                alert("Please fill the boxes correctly (this includes the type of loan.");  
+            }
+
+            else 
+            {
+                data = {
+                name: book_name.value,
+                author: book_author.value,
+                year_published: book_year.value,
+                _type: book_loan.value
+
+            }
+            books = await axios.post(MY_SERVER + "/books/new", data) 
+            }
+
+            
+
+        }
+
+    </script>
+</body>
+
+</html>

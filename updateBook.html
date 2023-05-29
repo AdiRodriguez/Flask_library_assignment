@@ -1,0 +1,99 @@
+<!-- NOT COMPLETED -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>BOOKS</title>
+</head>
+
+<body onload="getData()">
+    <h1>Library: Books - Search and Update Books:</h1>
+    <h2>Press the button if any changes were made to take effect</h2>
+    Book:<select id="selectElementId" name="options" onchange="Fill_Blanks()">
+        <option value="1">Choose Book:</option>
+        Book name:<input type="text" id="book_name" required>           
+        Author Name::<input type="text" id="book_author" required>
+    Year:<input type="number" id="book_year"  required>
+    Duration:<select id="book_loan" name="options">
+        <option value="-1" selected>Choose duration</option>
+        <option value="1">up to 10 days</option>
+        <option value="2">up to 5 days</option>
+        <option value="3">up to 2 days</option>
+      </select>
+    <!-- might change it to Select with 4 options: aviliable,1,2,3 -->
+    
+   
+    <button onclick="update_book(this_id)">Update</button>
+    <br> <br> <a href="/index.html">Back to manu</a>
+
+    <script>
+        const MY_SERVER = 'http://127.0.0.1:5000'
+        let select = document.getElementById('selectElementId');
+        let this_id = -1
+
+        const getData = () => {
+            axios.get(MY_SERVER +"/books/view").then(response => {
+                const data = response.data;
+                console.log(data);
+                for (let index = 0; index < data.length; index++) {
+                    let books_name = data[index].name  
+                    var opt = document.createElement('option');
+                    opt.value = data[index].id;
+                    opt.innerHTML = books_name
+                    select.appendChild(opt)
+
+
+                    document.getElementById("book_name").value = ""
+                    document.getElementById("book_author").value = ""
+                    document.getElementById("book_year").value = ""
+
+
+                }
+            });
+        };
+        const Fill_Blanks = () => {
+            axios.get(MY_SERVER +"/books/view").then(response => {
+                const data = response.data;
+
+                id = document.getElementById("selectElementId").value - 1;
+                document.getElementById("book_name").value = data[id].name
+                document.getElementById("book_author").value = data[id].author
+                document.getElementById("book_year").value = data[id].year_published
+                document.getElementById("book_loan").value = data[id]._type
+                this_id = id+1;
+                
+            });
+        };
+        const update_book = async () => {
+            data = {
+                name: book_name.value,
+                author: book_author.value,
+                year_published: book_year.value,
+                _type: book_loan.value
+
+            }
+            
+
+            console.log(this_id);
+            customers = await axios.put(MY_SERVER + `/books/update/${this_id}`, data)
+            getData()    
+
+        }
+
+
+
+
+   
+            
+
+
+
+    </script>
+
+</body>
+
+</html>

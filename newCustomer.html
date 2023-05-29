@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>NEW CUSTOMER</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Library: Customers - New Customer:</h1>
+    <div id="customerssss">
+        <h1>Enter Details:</h2>
+    </div>
+
+    
+    Name:<input type="text" id="customer_name" placeholder="ENTER YOUR NAME" required>
+    City:<input type="text" id="customer_city" placeholder="ENTER YOUR CITY" required>
+    Age:<input type="number" id="customer_age" placeholder="ENTER YOUR AGE" required>
+    <button onclick="newCustomer()">Add New Customer</button>
+    <br> <br> <a href="/index.html">Back to manu</a>
+
+
+    <script>
+        const MY_SERVER = 'http://127.0.0.1:5000'
+        const newCustomer = async () => {
+            if (customer_name.value.length <= 1 || customer_city.value.length <= 1 || customer_age.value.length <= 1)
+            {
+                alert("Please fill the boxes correctly");  
+            }
+            else
+            {
+                data = {
+                name: customer_name.value,
+                city: customer_city.value,
+                age: customer_age.value,
+
+            }
+            customers = await axios.post(MY_SERVER + "/customers/new", data) 
+            }    
+        }
+
+    </script>
+</body>
+
+</html>
