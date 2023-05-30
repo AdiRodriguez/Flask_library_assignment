@@ -53,6 +53,8 @@
 * Remove book [X]
 * Remove customer [X]
 
+### all the requirements has been fulfilled as the document stated
+
 
 
 
