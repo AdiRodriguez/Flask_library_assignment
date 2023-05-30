@@ -17,8 +17,8 @@
 * Author
 * Year published
 * Type (1/2/3)
-* 
-* ### Customers
+
+### Customers
 * Id
 * Name
 * City
@@ -35,6 +35,7 @@
 * 1- Up to 10 days
 * 2- Up to 5 days
 * 3- Up to 2 days
+* 
 ### 3) Create a DAL: 
 * Build a class for each table [X]
 * Creat a seprate module for each class [X]
