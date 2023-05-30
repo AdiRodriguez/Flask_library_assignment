@@ -9,7 +9,7 @@
  - [] Checkbox not checked
  - [X] Checkbox checked
 
-###  1) Create a simple database with 3 tables: -[X] 
+###  1) Create a simple database with 3 tables: - [X] 
 
 ### Books 
 * Id
