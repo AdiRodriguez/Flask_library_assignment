@@ -5,36 +5,36 @@
 ### 2) Flask as the backend
 ### 3) Simple HTML as front
 
-## the requirements for this assignment were to create were:
+## The requirements for this assignment were as followed:
 
-### 1) create a simple database with 3 tables:
+### 1) Create a simple database with 3 tables:
 ### Books
-* id
+* Id
 * Name
 * Author
 * Year published
 * Type (1/2/3)
 * ### Customers
-* id
+* Id
 * Name
 * City
 * Age
 
-### loans
+### Loans
 * Customer ID
 * Book ID
 * Author
 * Loan Date
 * Loan Return
 
-### 2) set book type as:
-* 1- up to 10 days
-* 2- up to 5 days
-* 3- up to 2 days
+### 2) Set book type as:
+* 1- Up to 10 days
+* 2- Up to 5 days
+* 3- Up to 2 days
 ### 3) Create a DAL:
 * Build a class for each table
-* creat a seprate module for each class
-* construct a build test unit
+* Creat a seprate module for each class
+* Construct a build test unit
 ### 4) Build a simple menu with these operaitions:
 * Add a new customer
 * Add a new book
