@@ -101,7 +101,7 @@ class loan(db.Model):
 # The funny
 @app.route("/")
 def menu():
-    return "hello we've been trying to reach you about your car's extended warranty"
+    return "hello we've been trying to reach you about your car's extended warranty (deploy works!)"
 
 
 # ----------CUSTOMERS SECTION----------
