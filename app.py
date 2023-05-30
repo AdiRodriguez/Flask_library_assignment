@@ -118,7 +118,7 @@ def view_customer(id):
     this_customer = customer.query.get(id)
     customer_to_dict = this_customer.to_dict()
     return jsonify(customer_to_dict)
-
+# Searches a customer by name (must enter full name)
 @app.route("/customers/view/search/<Cname>")
 def search_customer(Cname):
     customer_name = Cname.title()
@@ -175,7 +175,7 @@ def view_book(id):
     this_book = book.query.get(id)
     book_to_dict = this_book.to_dict()
     return jsonify(book_to_dict)
-
+# Searches a book by name (can enter name partly)
 @app.route("/books/view/search/<Bname>")
 def search_book(Bname):
     book_name = Bname.title()

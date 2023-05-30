@@ -1,4 +1,4 @@
-<!-- NOT COMPLETED -->
+<!-- Updates a book when selecting from existing book and fills blanks automataicly  -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,6 +80,7 @@
 
             console.log(this_id);
             customers = await axios.put(MY_SERVER + `/books/update/${this_id}`, data)
+            alert("Book updated!"); 
             getData()    
 
         }

@@ -1,3 +1,4 @@
+<!-- Loaning system: only shows books that are currently available in the system  -->
 <!DOCTYPE html>
 <html>
 
@@ -144,6 +145,7 @@
             }
             this_loan = await axios.post(MY_SERVER + "/loans/new", data)
             this_loan_update = await axios.put(MY_SERVER + `/books/update/boolean/${value_book}`, data)
+            alert(" loan created successfully!"); 
             }
         
             else 

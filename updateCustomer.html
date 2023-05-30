@@ -1,4 +1,4 @@
-<!-- NOT COMPLETED -->
+<!-- Updates a customer when selecting from existing customer and fills blanks automataicly  -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,6 +69,7 @@
             console.log(data);
             // WE ARE SENDING THE DATA WITH THIS LINE!!!!
             customers = await axios.put(MY_SERVER + `/customers/update/${this_id}`, data)
+            alert("Customer updated!");
             getData()
             
 

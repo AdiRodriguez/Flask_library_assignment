@@ -1,3 +1,4 @@
+<!-- Creates a customer only and only if all inputs were filled correctly -->
 <!DOCTYPE html>
 <html>
 
@@ -58,6 +59,7 @@
 
             }
             customers = await axios.post(MY_SERVER + "/customers/new", data) 
+            alert("The customer was added successfully!"); 
             }    
         }
 
